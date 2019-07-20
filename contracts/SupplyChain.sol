@@ -12,12 +12,12 @@ contract SupplyChain {
   address owner;
 
   /* Add a variable called skuCount to track the most recent sku # */
-  uint skuCount;
+  uint public skuCount;
 
   /* Add a line that creates a public mapping that maps the SKU (a number) to an Item.
      Call this mappings items
   */
-  mapping (uint => Item) items;
+  mapping (uint => Item) public items;
 
   /* Add a line that creates an enum called State. This should have 4 states
     ForSale
@@ -58,7 +58,7 @@ contract SupplyChain {
 
 /* Create a modifer that checks if the msg.sender is the owner of the contract */
 
-  modifier verifyCaller (address _address) { require (msg.sender == _address); _;}
+  modifier verifyCaller (address _address) { require (msg.sender == _address, "You're not allowed to do this process"); _;}
 
   modifier paidEnough(uint _price) { require(msg.value >= _price); _;}
   modifier checkValue(uint _sku) {
@@ -66,7 +66,9 @@ contract SupplyChain {
     _;
     uint _price = items[_sku].price;
     uint amountToRefund = msg.value - _price;
-    items[_sku].buyer.transfer(amountToRefund);
+    if(amountToRefund > 0){
+      items[_sku].buyer.transfer(amountToRefund);
+    } 
   }
 
   /* For each of the following modifiers, use what you learned about modifiers
