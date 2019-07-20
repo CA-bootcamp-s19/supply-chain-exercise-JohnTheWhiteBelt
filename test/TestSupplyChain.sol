@@ -17,7 +17,7 @@ contract TestSupplyChain {
 
     // test for failure if user does not send enough funds
     function testBuyItemFailureIfNotEnoughFunds() public {
-      address payable supplyChainAddress = DeployedAddresses.SupplyChain();
+      address payable supplyChainAddress = address(uint160(DeployedAddresses.SupplyChain()));
       SupplyChain(supplyChainAddress).addItem("book", 1000);
 
       //This seems clearer than throw proxy.
@@ -29,7 +29,7 @@ contract TestSupplyChain {
     }
     //test for purchasing an item that is not for Sale
     function testBuyItemFailureIfNotForSale() public {
-      address payable supplyChainAddress = DeployedAddresses.SupplyChain();
+      address payable supplyChainAddress = address(uint160(DeployedAddresses.SupplyChain()));
       SupplyChain supplyChain = SupplyChain(supplyChainAddress);
       supplyChain.addItem("Toy", 2000);
       uint sku = supplyChain.skuCount() - 1;
@@ -45,7 +45,7 @@ contract TestSupplyChain {
 
     // test for calls that are made by not the seller
     function testshipItemFailureIfNotTheseller() public {
-      address payable supplyChainAddress = DeployedAddresses.SupplyChain();
+      address payable supplyChainAddress = address(uint160(DeployedAddresses.SupplyChain()));
       SupplyChain supplyChain = SupplyChain(supplyChainAddress);
       supplyChain.addItem("Food", 500);
       uint sku = supplyChain.skuCount() - 1;
@@ -56,7 +56,7 @@ contract TestSupplyChain {
     }
     //test for trying to ship an item that is not marked Sold
     function testshipItemFailureIfNotSold() public {
-      address payable supplyChainAddress = DeployedAddresses.SupplyChain();
+      address payable supplyChainAddress = address(uint160(DeployedAddresses.SupplyChain()));
       SupplyChain supplyChain = SupplyChain(supplyChainAddress);
       supplyChain.addItem("Food", 500);
       uint sku = supplyChain.skuCount() - 1;
@@ -67,7 +67,7 @@ contract TestSupplyChain {
 
     // test calling the function from an address that is not the buyer
     function testshipItemFailureIfNotBuyer() public {
-      address payable supplyChainAddress = DeployedAddresses.SupplyChain();
+      address payable supplyChainAddress = address(uint160(DeployedAddresses.SupplyChain()));
       SupplyChain supplyChain = SupplyChain(supplyChainAddress);
       supplyChain.addItem("clothes", 250);
       uint sku = supplyChain.skuCount() - 1;
@@ -79,7 +79,7 @@ contract TestSupplyChain {
     }
     // test calling the function on an item not marked Shipped
     function testshipItemFailureIfNotShipped() public {
-      address payable supplyChainAddress = DeployedAddresses.SupplyChain();
+      address payable supplyChainAddress = address(uint160(DeployedAddresses.SupplyChain()));
       SupplyChain supplyChain = SupplyChain(supplyChainAddress);
       supplyChain.addItem("clothes", 250);
       uint sku = supplyChain.skuCount() - 1;
